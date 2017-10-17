@@ -20,12 +20,10 @@ class World {
 	
 	public:
 	
-		World::World();
+		World();
 		int	createRooms();
 		int	createPlayer();
 		int dropItems();
 			
-	
-	
 };
 #endif
