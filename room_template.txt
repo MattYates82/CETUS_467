@@ -1,7 +1,7 @@
-name=
+Name=
 longDesc=
 shortDesc=
-Visited=
+visited=
 Item1=NULL
 Item2=NULL
 Item3=NULL
