@@ -84,3 +84,22 @@ void saveFile(std::string fileName, std::map<std::string, std::string> myMap) {
 	//close file
 	outFile.close();
 }
+
+
+/***************************************************************************
+**Function:  loadItem
+**Description:  Creates Item object based on .txt source file data
+**Parameters:  std::string location
+**Pre-Condition:  .txt source file exists
+**Post-Condition:  new Item object is created and returned
+****************************************************************************/
+Item* loadItem(std::string location) {
+	//declare variables
+	std::map <std::string, std::string> tempMap;
+
+	tempMap = loadFile(location);//load file data into tempMap
+
+	Item* tempItem = new Item(tempMap["Name"], tempMap["Description"], std::stoi(tempMap["Power"]), std::stoi(tempMap["Healing"]), std::stoi(tempMap["weapon"]));
+
+	return tempItem;
+}
