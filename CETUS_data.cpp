@@ -91,7 +91,7 @@ void saveFile(std::string fileName, std::map<std::string, std::string> myMap) {
 **Description:  Creates Item object based on .txt source file data
 **Parameters:  std::string location
 **Pre-Condition:  .txt source file exists
-**Post-Condition:  new Item object is created and returned
+**Post-Condition:  new Item object is created and pointer is returned
 ****************************************************************************/
 Item* loadItem(std::string location) {
 	//declare variables
@@ -99,7 +99,68 @@ Item* loadItem(std::string location) {
 
 	tempMap = loadFile(location);//load file data into tempMap
 
-	Item* tempItem = new Item(tempMap["Name"], tempMap["Description"], std::stoi(tempMap["Power"]), std::stoi(tempMap["Healing"]), std::stoi(tempMap["weapon"]));
+	Item* tempItem = new Item(tempMap["Name"], tempMap["Description"], std::stoi(tempMap["Power"]), std::stoi(tempMap["Healing"]), 
+		std::stoi(tempMap["weapon"]), std::stoi(tempMap["roomFeature"]), std::stoi(tempMap["collectible"]));
 
 	return tempItem;
+}
+
+
+/***************************************************************************
+**Function:  loadRoom
+**Description:  Creates Room object based on .txt source file data
+**Parameters:  std::string location, map of Item pointers, map of string vectors by reference
+**Pre-Condition:  .txt source file exists, itemMap has already been filled
+**Post-Condition:  new Room object is created and pointer is returned
+**		Also, will add adjacency list to map of string vectors
+****************************************************************************/
+Room* loadRoom(std::string location, std::map<std::string, Item*> *itemMap, std::map<std::string, std::vector<std::string>> *adj) {
+	//declare variables
+	std::map <std::string, std::string> tempMap;
+	std::map <std::string, std::string>::iterator it;//will be used to find Items in map
+
+	tempMap = loadFile(location);//load file data into tempMap
+
+	Room* tempRoom = new Room();//create new Room with default constructor
+	tempRoom->addDescriptions(tempMap["longDesc"], tempMap["shortDesc"]);//populate descriptions from tempMap
+	//code to set Name will go here when set function is ready
+	//code to set visited will go here when set function is ready
+
+	//Place items in Room
+	//set map iterator to first item in map
+	it = tempMap.find("Item01");
+	while (it->first.compare(0, 4, "Item") == 0) {
+		tempRoom->addItem(itemMap->at([it->second]));
+		it++;
+	}
+
+	//save adjacent Rooms to map of vectors to populate List later
+	//List must be populated after all Rooms have been created
+	//set map iterator to first adjacent room in map
+	it = tempMap.find("adj0");
+	while (it->first.compare(0, 3, "adj")) {
+		adj->at(tempMap["Name"]).push_back(it->second);//should push each "adj_" keyed value in map onto mapped vector
+		it++;
+	}
+
+	return tempRoom;
+}
+
+
+/***************************************************************************
+**Function:  loadPlayer
+**Description:  Creates Player object based on .txt source file data
+**Parameters:  std::string location, map of Item pointers, map of Room pointers
+**Pre-Condition:  .txt source file exists, itemMap has already been filled, Rooms have been created
+**Post-Condition:  new Player object is created returned
+****************************************************************************/
+Player loadPlayer(std::string location, const std::map<std::string, Room*> *rooms, const std::map<std::string, Item*> *itemMap) {
+	//declare variables
+	std::map <std::string, std::string> tempMap;
+	std::map <std::string, std::string>::iterator it;//will be used to find Items in map
+
+	tempMap = loadFile(location);//load file data into tempMap
+
+	//call player constructor using tempMap to find current room from map of Room pointers
+	Player tempPlayer(rooms->at(tempMap["currentRoom"]));
 }

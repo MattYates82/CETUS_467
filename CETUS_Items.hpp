@@ -5,6 +5,8 @@
 #ifndef CETUS_ITEM_HPP
 #define CETUS_ITEM_HPP
 
+using std::string;
+
 class Item {
 	
 	private:
@@ -20,7 +22,7 @@ class Item {
 	public:
 	
 		Item();
-		Item(string Name, string Description, int Power, int Healing, bool weapon);
+		Item(string Name, string Description, int Power, int Healing, bool weapon, bool feature, bool collect);
 		~Item();
 		int damageItem(int damage);
 		string getName();
