@@ -15,6 +15,8 @@ using std::string;
 #define SOUTH 1
 #define EAST 2
 #define WEST 3
+#define UP 4
+#define DOWN 5
 
 int main(){
 	

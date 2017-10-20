@@ -31,6 +31,6 @@ class Room {
 		void addNeighbor(int direction, Room* neigbor);
 		void getLong();
 		void getShort();
-		void getNeighbors();
+		List* getNeighbors();
 };
 #endif

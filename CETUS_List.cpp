@@ -2,10 +2,12 @@
 #include <iostream>
 
 /* 
-NORTH 0
-SOUTH 1
-EAST 2sd
-WEST 3
+NORTH 	0
+SOUTH 	1
+EAST 	2
+WEST 	3
+UP		4
+DOWN	5
 */
 
 using std::endl;
@@ -18,6 +20,8 @@ List::List(){
 	this->south = NULL;
 	this->east = NULL;
 	this->west = NULL;
+	this->up = NULL;
+	this->down = NULL;
 
 }
 
@@ -30,6 +34,10 @@ List::~List(){
 		if (this->east != NULL){ delete this->east;}
 		
 		if (this->west != NULL){ delete this->west;}
+		
+		if (this->up != NULL){ delete this->up;}
+		
+		if (this->down != NULL){ delete this->down;}
 	
 }
 
@@ -62,34 +70,6 @@ void List::addAdjacent(int direction, Room* current){
 	
 }
 
-Room* List::printAdjacent(int direction){
-	
-	switch(direction){
-		
-	case 0:
-		return this->north;
-		break;
-		
-	case 1:
-		return this->south;
-		break;
-			
-	case 2:
-		return this->east;
-		break;
-			
-	case 3:
-		return this->west;
-		break;
-			
-	default:
-		break;		
-	
-	}
-	
-	return NULL;	
-	
-}
 //to be used when dimension changes, quick way to alter the adjacency list for each room
 void List::switchAdjacent(int first, int second){
 	
@@ -197,7 +177,36 @@ void List::switchAdjacent(int first, int second){
 				break;					
 		}		
 		break;
+	
+	case 4:
+		temp = this->up;
+		
+		switch(second){
 			
+			case 5:
+				this->up = this->down;
+				this->down = temp;
+				break;
+				
+			default:
+				break;
+		}
+		break;
+		
+	case 5:
+		temp = this->down;
+		
+		switch(second){
+			case 4:
+				this->down = this->up;
+				this->up = temp;
+				break;
+				
+			default:
+				break;
+		}
+		break;
+	
 	default:
 		break;		
 	
@@ -207,28 +216,3 @@ void List::switchAdjacent(int first, int second){
 	
 }
 
-/*void List::printAllAdjacent(){
-	
-	if (this->north != NULL){ 
-	
-		cout<<"North - ";
-		this->north->printShort();
-		}
-		
-	if (this->south != NULL){ 
-	
-		cout<<"South - ";
-		this->south->printShort();}
-		
-	if (this->east != NULL){ 
-	
-		cout<<"East - ";
-		this->east->printShort();}
-		
-	if (this->west != NULL){ 
-	
-		cout<<"West - ";
-		this->west->printShort();}
-		
-	return;
-}*/

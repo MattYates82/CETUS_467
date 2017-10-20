@@ -20,14 +20,18 @@ class Player{
 		Room* currentRoom;
 		std::vector<Item*> inventory;
 		int specialItemCount;
+		List* currentNeighbors;
 	
 	public:
 	
 		Player();
+		Player(Room* current);
 		string getName();
 		int getHealth();
 		int getMovesCompleted();
 		Room*	getCurrentRoom();
+		void getSpecialItemCount();
+		void setCurrent(Room* current);
 		int addItem(Item* current);
 		int dropItem(Item* current);
 		int incrementMoves();
@@ -39,6 +43,7 @@ class Player{
 		void printInventory();
 		void printRoomInventory();
 		void printAdjacent(int direction);
+		void move(int direction);
 	
 };
 

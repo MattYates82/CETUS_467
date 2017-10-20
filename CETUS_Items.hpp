@@ -19,6 +19,7 @@ class Item {
 		
 	public:
 	
+		Item();
 		Item(string Name, string Description, int Power, int Healing, bool weapon);
 		~Item();
 		int damageItem(int damage);
@@ -28,7 +29,7 @@ class Item {
 		int getHealing();
 		bool getWeapon();
 		bool getRoomFeature();
-		
+		bool getCollectible();
 	
 };
 #endif

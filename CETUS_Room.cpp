@@ -56,17 +56,16 @@ void Room::printShort(){
 	return;
 	
 }
-/*
-void Room::getNeighbors(){
-	
-	this->neighbors->printAllAdjacent();
-	return;
-	
-}*/
 
 void Room::createNeighbors(List* neighborList){
 	
 	this->neighbors = neighborList;
+	
+}
+
+List* Room::getNeighbors(){
+	
+	return this->neighbors;
 	
 }
 
