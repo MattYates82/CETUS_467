@@ -18,7 +18,7 @@ class Room {
 		string	shortDesc;
 		bool	visited;
 		std::vector<Item*> roomItems;
-		List 	*neighbors;
+		List 	neighbors;
 			
 	public:
 	
@@ -31,7 +31,6 @@ class Room {
 		void addNeighbor(int direction, Room* neigbor);
 		void getLong();
 		void getShort();
-		void Room::createNeighbors(List* neighborList);
 		List* getNeighbors();
 };
 #endif
