@@ -43,14 +43,14 @@ void Room::addNeighbor(int direction, Room* neighbor){
 	
 }
 
-void Room::printLong(){
+void Room::getLong(){
 
 		cout<<this->longDesc;
 		return;
 	
 }
 
-void Room::printShort(){
+void Room::getShort(){
 
 	cout<<this->shortDesc;
 	return;
@@ -69,3 +69,30 @@ List* Room::getNeighbors(){
 	
 }
 
+void Room::setName(string newName){
+	
+	this->Name = newName;
+	
+}
+
+void Room::setVisited(bool visit){
+	
+	
+	this->visited = visit;
+	
+}
+
+Item* Room::findItem(string current){
+	
+	for (int i = 0; i < this->roomItems.size(); i++){
+	
+		if (this->roomItems[i]->getName().compare(current)){
+			
+			return this->roomItems[i];
+		}
+	
+	}
+
+	return NULL;
+		
+}

@@ -44,6 +44,7 @@ class Player{
 		void printRoomInventory();
 		void printAdjacent(int direction);
 		void move(int direction);
+		Item* findItem(string current);
 	
 };
 

@@ -23,13 +23,13 @@ using std::string;
 		return;
 	}
 	
-	Player::Player(Room* current){
+	Player::Player(Room* current, int currentHealth, int currentMoves, int currentSpecialCount){
 		
-		this->health = 100;
-		this->movesCompleted = 0;
+		this->health = currentHealth;
+		this->movesCompleted = currentMoves;
 		this->currentRoom = current;
 		this->currentNeighbors = current->getNeighbors();
-		this->specialItemCount = 0;
+		this->specialItemCount = currentSpecialCount;
 		return;
 	}
 	
@@ -72,11 +72,30 @@ using std::string;
 		this->inventory.push_back(current);
 		
 	}
-	int Player::dropItem(Item* current){
+	int Player::dropItem(string current){
 		
+		
+		this->currentRoom->addItem(current);
+
 		return 0;
 		
 	}
+	
+	Item* Player::findItem(string current){
+		
+		for (int i = 0; i < this->inventory.size(); i++){
+			
+			if (this->inventory[i]->getName().compare(current)){
+				
+				return this->inventory[i];
+			}
+			
+		}
+		
+		return NULL;
+		
+	}
+	
 	int Player::incrementMoves(){
 		
 		this->movesCompleted++;
