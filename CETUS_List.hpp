@@ -22,7 +22,7 @@ class List{
 	
 		List();
 		~List();
-		void addAdjacent(int direction, Room* current)
+		void addAdjacent(int direction, Room* current);
 		void switchAdjacent(int first, int second);
 		
 		
