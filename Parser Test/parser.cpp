@@ -54,7 +54,7 @@ void helper(){
     cout << "-----------------\n";
 }
 
-std::map<std::string, int> mapMaker(std::map<std::string, int> *map){
+void mapMaker(std::map<std::string, int> *map){
     map->insert (std::pair<std::string, int>("quit", 0));
     map->insert (std::pair<std::string, int>("attack", 1));
     map->insert (std::pair<std::string, int>("hit", 1));
@@ -82,14 +82,14 @@ std::map<std::string, int> mapMaker(std::map<std::string, int> *map){
     map->insert (std::pair<std::string, int>("look_at", 14));
     map->insert (std::pair<std::string, int>("inspect", 14));
     map->insert (std::pair<std::string, int>("drop", 15));
-    return *map;
+    return;
 }
 
-std::vector <std::string> nounListMaker(std::vector <std::string> *list){
+void nounListMaker(std::vector <std::string> *list){
     list->push_back("axe");
     list->push_back("pipe");
     list->push_back("jacket");
-    return *list;
+    return;
 }
 
 
@@ -138,7 +138,8 @@ int main(){
     //Start display
     player->displayRoom();
     
-   
+    std::vector<Creature*> eList = player->getCurrentRoom()->getEnemies();
+    cout << eList[0]->getName();
     
     while(1){
         sstream.str("");
@@ -180,6 +181,19 @@ int main(){
             
             }
             
+            std::vector<Creature*> eList = player->getCurrentRoom()->getEnemies();
+            for(int i = 0; i<eList.size();++i){
+                if(first == eList[i]->getName()){
+                    if(!foundNoun1){
+                        //printf("Found a noun match!\n");
+                        foundNoun1=true;
+                        foundEnemy=true;
+                        baddie = eList[i];
+                    }
+                }
+            }
+            
+            /*
             //look for bad guy
             for(std::vector<Creature*>::iterator it = player->getCurrentRoom()->getEnemies().begin(); it != player->getCurrentRoom()->getEnemies().end(); ++it){
                 if(first == (*it)->getName()){
@@ -191,7 +205,7 @@ int main(){
                     }
                 }
             }
-            
+            */
             for(std::vector<Item*>::iterator it = player->getInventory().begin(); it != player->getInventory().end(); ++it){
                 if(first == (*it)->getName()){
                     if(!foundNoun1){
@@ -245,10 +259,11 @@ int main(){
             case 1:  //Attack, Hit
                 if(foundNoun2 && withFlag && foundEnemy){
                     battle(player, ghost1, noun2->getPower());
-                } else {
-                    if(foundEnemy){
+                } else if (foundEnemy){
                         battle(player, ghost1, 0);
-                    }
+                } else {
+                    cout << "What do you want to attack?\n";
+
                 }
                 break;
             case 2: //North, n
