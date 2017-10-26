@@ -25,7 +25,7 @@ List::List(){
 
 }
 
-List::~List(){
+/*List::~List(){
 
 		if (this->north != NULL){ delete this->north;}
 		
@@ -39,7 +39,7 @@ List::~List(){
 		
 		if (this->down != NULL){ delete this->down;}
 	
-}
+}*/
 
 void List::addAdjacent(int direction, Room* current){
 	

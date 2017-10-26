@@ -1,6 +1,7 @@
 #include <string>
-
+#include <vector>
 #define numItems 10
+//#include "CETUS_Room.hpp"
 
 #ifndef CETUS_PLAYER_HPP
 #define CETUS_PLAYER_HPP
@@ -9,9 +10,10 @@ using std::string;
 
 class Item;
 class Room;
+class List;
 
 class Player{
-	
+
 	private:
 	
 		string Name;
@@ -25,15 +27,15 @@ class Player{
 	public:
 	
 		Player();
-		Player(Room* current);
+		Player(Room* current, int currentHealth, int currentMoves, int currentSpecialCount);
 		string getName();
 		int getHealth();
 		int getMovesCompleted();
 		Room*	getCurrentRoom();
-		void getSpecialItemCount();
-		void setCurrent(Room* current);
+		int getSpecialItemCount();
+		void setCurrentRoom(Room* current);
 		int addItem(Item* current);
-		int dropItem(Item* current);
+		int dropItem(string current);
 		int incrementMoves();
 		int decrementMoves();
 		int resurrectPlayer(Room* current);
@@ -44,7 +46,7 @@ class Player{
 		void printRoomInventory();
 		void printAdjacent(int direction);
 		void move(int direction);
-		Item* findItem(string current);
+		Item* findItem(string current, bool drop);
 	
 };
 

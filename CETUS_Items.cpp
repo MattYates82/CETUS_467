@@ -5,9 +5,9 @@ using std::string;
 
 Item::Item(){
 	
-	this->Name = '';
-	this->Description = '';
-	this->roomDescription = '';
+	this->Name = ' ';
+	this->Description = ' ';
+	this->roomDescription = ' ';
 	this->Power = 0;
 	this->Healing = 0;
 	this->weapon = false;
@@ -17,7 +17,7 @@ Item::Item(){
 		
 }
 
-Item::Item(string newName, string newDesc, string roomDesc int newPower, int newHealing, bool newWeapon, bool feature, bool collect){
+Item::Item(string newName, string newDesc, string roomDesc, int newPower, int newHealing, bool newWeapon, bool feature, bool collect){
 	
 	this->Name = newName;
 	this->Description = newDesc;
@@ -40,13 +40,13 @@ string Item::getName(){
 
 string Item::getDescription(){
 	
-	return this->Desciption;
+	return this->Description;
 	
 }
 
 string Item::getRoomDescription(){
 	
-	return this->roomDesciption;
+	return this->roomDescription;
 	
 }
 
@@ -58,7 +58,7 @@ int Item::getPower(){
 
 int Item::getHealing(){
 	
-	return this->Healing();	
+	return this->Healing;	
 	
 }
 
@@ -84,7 +84,7 @@ bool Item::getCollectible(){
 int Item::damageItem(int damage){
 	
 	this->Power -= damage;
-	if (this->Power < 0{
+	if (this->Power < 0){
 		
 		this->Power = 0; 
 		

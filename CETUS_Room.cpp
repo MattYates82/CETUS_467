@@ -36,12 +36,12 @@ void Room::removeItem(Item* current){
 	
 }
 
-void Room::addNeighbor(int direction, Room* neighbor){
+/*void Room::addNeighbor(int direction, Room* neighbor){
 	
 	this->neighbors->addAdjacent(direction, neighbor);
 	return;
 	
-}
+}*/ //Returning error for using an incomplete type here, may need to move this functionality to the overall world. 
 
 void Room::getLong(){
 
@@ -60,7 +60,7 @@ void Room::getShort(){
 void Room::createNeighbors(List* neighborList){
 	
 	this->neighbors = neighborList;
-	
+	return;
 }
 
 List* Room::getNeighbors(){
@@ -72,7 +72,7 @@ List* Room::getNeighbors(){
 void Room::setName(string newName){
 	
 	this->Name = newName;
-	
+	return;
 }
 
 void Room::setVisited(bool visit){
@@ -82,7 +82,7 @@ void Room::setVisited(bool visit){
 	
 }
 
-Item* Room::findItem(string current){
+/*Item* Room::findItem(string current){
 	
 	for (int i = 0; i < this->roomItems.size(); i++){
 	
@@ -95,4 +95,4 @@ Item* Room::findItem(string current){
 
 	return NULL;
 		
-}
+}*/  //Returning error for using an incomplete type here, may need to move this functionality to the overall world. 

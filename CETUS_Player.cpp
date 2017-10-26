@@ -1,6 +1,9 @@
 #include <iostream>
 #include <string>
 #include "CETUS_Player.hpp"
+#include "CETUS_Room.hpp"
+#include "CETUS_List.hpp"
+#include "CETUS_Items.hpp"
 
 #define NORTH 0
 #define SOUTH 1
@@ -72,22 +75,35 @@ using std::string;
 		this->inventory.push_back(current);
 		
 	}
+	
 	int Player::dropItem(string current){
 		
 		
-		this->currentRoom->addItem(current);
-
-		return 0;
+		Item* temp = findItem(current, true);
+		
+		if (temp != NULL){
+		
+			this->currentRoom->addItem(temp);
+			return 0; 
+		}
+		
+		return 1;
 		
 	}
 	
-	Item* Player::findItem(string current){
+	Item* Player::findItem(string current, bool drop){
 		
 		for (int i = 0; i < this->inventory.size(); i++){
 			
 			if (this->inventory[i]->getName().compare(current)){
 				
-				return this->inventory[i];
+				Item* temp = this->inventory[i];
+				
+				if(drop == true){
+					this->inventory[i] = NULL;
+				}
+				
+				return temp;
 			}
 			
 		}
@@ -115,7 +131,7 @@ using std::string;
 		this->currentRoom = current;
 		this->currentNeighbors = current->getNeighbors();
 		this->specialItemCount = 0;
-		return;
+		return 0;
 		
 	}
 	int Player::damagePlayer(int damage){
@@ -133,7 +149,7 @@ using std::string;
 	}
 	int Player::healPlayer(int health){
 		
-		this->health += damage;
+		this->health += health;
 
 		if(this->health > 100){
 			
@@ -146,40 +162,40 @@ using std::string;
 	}
 	void Player::printAllAdjacent(){
 		
-		if (this->north != NULL){
+		if (this->currentRoom->neighbors->north != NULL){
 			
-			cout << this->north->Name << endl;
-			
-		}
-		
-		if (this->south != NULL){
-			
-			cout << this->south->Name << endl;
+			cout << this->currentRoom->neighbors->north->Name << endl;
 			
 		}
 		
-		if (this->east != NULL){
+		if (this->currentRoom->neighbors->south != NULL){
 			
-			cout << this->east->Name << endl;
-			
-		}
-		
-		if (this->west != NULL){
-			
-			cout << this->west->Name << endl;
+			cout << this->currentRoom->neighbors->south->Name << endl;
 			
 		}
 		
-		
-		if (this->up != NULL){
+		if (this->currentRoom->neighbors->east != NULL){
 			
-			cout << this->up->Name << endl;
+			cout << this->currentRoom->neighbors->east->Name << endl;
 			
 		}
 		
-		if (this->down != NULL){
+		if (this->currentRoom->neighbors->west != NULL){
 			
-			cout << this->down->Name << endl;
+			cout << this->currentRoom->neighbors->west->Name << endl;
+			
+		}
+		
+		
+		if (this->currentRoom->neighbors->up != NULL){
+			
+			cout << this->currentRoom->neighbors->up->Name << endl;
+			
+		}
+		
+		if (this->currentRoom->neighbors->down != NULL){
+			
+			cout << this->currentRoom->neighbors->down->Name << endl;
 			
 		}
 		
@@ -188,10 +204,17 @@ using std::string;
 	
 	void Player::printInventory(){
 		
-		for(std::vector<T>::iterator it = this->inventory.begin(); it != this->inventory.end(); ++it) {
+		if (this->inventory.size() == 0) { 
+		
+			cout << "Player has no items in inventory." << endl;
+			return;
+		}
+		
+		for (int i = 0; i < this->inventory.size(); i++){
 			
-			cout << *it->getName();
-			
+			if (this->inventory[i] != NULL){
+				cout << inventory[i]->getName();
+			}
 		}
 		
 		return;
@@ -199,10 +222,17 @@ using std::string;
 	}
 	void Player::printRoomInventory(){
 		
-		for(std::vector<T>::iterator it = this->currentRoom->roomItems.begin(); it != this->currentRoom->roomItems.end(); ++it) {
+		if (this->currentRoom->roomItems.size() == 0) { 
+		
+			cout << "Player has no items in inventory." << endl;
+			return;
+		}
+		
+		for (int i = 0; i < currentRoom->roomItems.size(); i++){
 			
-			cout << *it->getName();
-			
+			if (currentRoom->roomItems[i] != NULL){
+				cout << currentRoom->roomItems[i]->getName();
+			}
 		}
 		
 		return;		
@@ -213,27 +243,27 @@ using std::string;
 		switch(direction){
 			
 			case NORTH:
-				cout << this->currentRoom->north->Name << endl;
+				cout << this->currentRoom->neighbors->north->Name << endl;
 				break;
 			
 			case SOUTH:
-				cout << this->currentRoom->south->Name << endl;
+				cout << this->currentRoom->neighbors->south->Name << endl;
 				break;
 			
 			case EAST:
-				cout << this->currentRoom->east->Name << endl;
+				cout << this->currentRoom->neighbors->east->Name << endl;
 				break;
 			
 			case WEST:
-				cout << this->currentRoom->west->Name << endl;
+				cout << this->currentRoom->neighbors->west->Name << endl;
 				break;
 			
 			case UP:
-				cout << this->currentRoom->up->Name << endl;
+				cout << this->currentRoom->neighbors->up->Name << endl;
 				break;
 			
 			case DOWN:
-				cout << this->currentRoom->down->Name << endl;
+				cout << this->currentRoom->neighbors->down->Name << endl;
 				break;
 			
 			default:
@@ -249,32 +279,32 @@ using std::string;
 		switch(direction){
 			
 			case NORTH:
-				this->currentRoom = this->currentRoom->north;
+				this->currentRoom = this->currentRoom->neighbors->north;
 				this->currentNeighbors = this->currentRoom->getNeighbors();
 				break;
 			
 			case SOUTH:
-				this->currentRoom = this->currentRoom->south;
+				this->currentRoom = this->currentRoom->neighbors->south;
 				this->currentNeighbors = this->currentRoom->getNeighbors();
 				break;
 			
 			case EAST:
-				this->currentRoom = this->currentRoom->east;
+				this->currentRoom = this->currentRoom->neighbors->east;
 				this->currentNeighbors = this->currentRoom->getNeighbors();
 				break;
 			
 			case WEST:
-				this->currentRoom = this->currentRoom->west;
+				this->currentRoom = this->currentRoom->neighbors->west;
 				this->currentNeighbors = this->currentRoom->getNeighbors();
 				break;
 			
 			case UP:
-				this->currentRoom = this->currentRoom->up;
+				this->currentRoom = this->currentRoom->neighbors->up;
 				this->currentNeighbors = this->currentRoom->getNeighbors();
 				break;
 			
 			case DOWN:
-				this->currentRoom = this->currentRoom->down;
+				this->currentRoom = this->currentRoom->neighbors->down;
 				this->currentNeighbors = this->currentRoom->getNeighbors();
 				break;
 			

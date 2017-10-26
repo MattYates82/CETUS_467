@@ -1,9 +1,10 @@
 #include <string>
-#include "CETUS_Room.hpp"
-#include "CETUS_World.hpp"
 
-#ifndef CETUS_ITEM_HPP
-#define CETUS_ITEM_HPP
+
+#ifndef CETUS_ITEMS_HPP
+#define CETUS_ITEMS_HPP
+
+using std::string;
 
 class Item {
 	
@@ -21,7 +22,7 @@ class Item {
 	public:
 	
 		Item();
-		Item(string Name, string Description, string roomDesc, int Power, int Healing, bool weapon);
+		Item(string Name, string Description, string roomDesc, int Power, int Healing, bool weapon, bool feature, bool collect);
 		~Item();
 		int damageItem(int damage);
 		string getName();
