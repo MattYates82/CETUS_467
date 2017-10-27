@@ -59,9 +59,11 @@ int main() {
 	for (int x = 0; x < itemNum; x++) {
 		fileLocation = "./" + location + "/" + itemList[x];
 		tempItem = loadItem(fileLocation);
+		std::cout << tempItem->getName() << std::endl;
 		key = tempItem->getName();
 		itemMap[key] = tempItem;
 	}
+
 
 	//create array holding list of all Room files
 	std::string roomList[] = {"Main Street.txt", "Churchyard.txt"};
@@ -73,14 +75,14 @@ int main() {
 		roomMap[key] = tempRoom;
 	}
 
-	std::cout << "Created Rooms" << std::endl;
+	std::cout << "Created Rooms" << std::endl << std::endl;
 
 	//Populate Room neighbor Lists
 	loadList(&adj, &roomMap);
 
 	//create Player object
-	/*fileLocation = "./" + location + "/Player.txt";
-	curPlayer = loadPlayer(fileLocation, &roomMap, &itemMap);*/
+	fileLocation = "./" + location + "/player.txt";
+	curPlayer = loadPlayer(fileLocation, &roomMap, &itemMap);
 
 
 	return 0;
