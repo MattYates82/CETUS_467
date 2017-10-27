@@ -29,7 +29,7 @@ void saveFile(std::string, std::map<std::string, std::string>);
 //Functions to create game objects
 Item* loadItem(std::string location);//creates Item from .txt file
 Room* loadRoom(std::string location, std::map<std::string, Item*> itemMap, std::map<std::string, std::vector<std::string>> *adj);//creates Room from .txt file.
-Player loadPlayer(std::string location, const std::map<std::string, Room*> *rooms, const std::map<std::string, Item*> *itemMap);//create Player from .txt file
-void loadList(const std::map<std::string, std::vector<std::string>> *adj, std::map<std::string, Room*> *roomMap);//create Lists from data that is already loaded
+Player loadPlayer(std::string location, const std::map<std::string, Room*> *rooms, std::map<std::string, Item*> itemMap);//create Player from .txt file
+void loadList(std::map<std::string, std::vector<std::string>> *adj, std::map<std::string, Room*> *roomMap);//create Lists from data that is already loaded
 
 #endif

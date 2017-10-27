@@ -125,8 +125,6 @@ Room* loadRoom(std::string location, std::map<std::string, Item*> itemMap, std::
 	Room* tempRoom = new Room;//create new Room with default constructor
 	tempRoom->addDescriptions(tempMap["longDesc"], tempMap["shortDesc"]);//populate descriptions from tempMap
 	tempRoom->setName(tempMap["Name"]);//set room name from map
-	std::cout << tempMap["Name"] << std::endl;
-	std::cout << tempMap["visited"] << std::endl;
 	tempRoom->setVisited(std::stoi(tempMap["visited"]));//set room visited bool from map
 
 
@@ -135,10 +133,7 @@ Room* loadRoom(std::string location, std::map<std::string, Item*> itemMap, std::
 	it = tempMap.find("Item01");
 	while (it->first.compare(0, 4, "Item") == 0) {
 		std::string itemName = it->second;
-		std::cout << "in item addition while loop" << std::endl;
-		std::cout << itemMap[itemName]->getName() << std::endl;
 		tempRoom->addItem(itemMap[itemName]);
-		std::cout << tempRoom->getName() << " " << itemMap[itemName]->getName() << " item added" << std::endl;
 		it++;
 	}
 
@@ -147,11 +142,7 @@ Room* loadRoom(std::string location, std::map<std::string, Item*> itemMap, std::
 	//List must be populated after all Rooms have been created
 	//set map iterator to first adjacent room in map
 	it = tempMap.find("adj0");
-	std::cout << "Found adjacencies in tempMap " << it->first << std::endl;
-	std::cout << "Before Adjacency while loop" << std::endl;
 	while (it->first.compare(0, 3, "adj") == 0) {
-		std::cout << "In adjacency while loop" << std::endl;
-		std::cout << "Adjacent:  " << it->second << std::endl;
 		list.push_back(it->second);
 		it++;
 	}
@@ -188,23 +179,28 @@ Room* loadRoom(std::string location, std::map<std::string, Item*> itemMap, std::
 	}
 }*/
 
-void loadList(const std::map<std::string, std::vector<std::string>> *adj, std::map<std::string, Room*> *roomMap){
+void loadList(std::map<std::string, std::vector<std::string>> *adj, std::map<std::string, Room*> *roomMap){
 
-	std::cout << adj->at("Main Street")[0] << std::endl;
+	std::cout << "Entered loadList" << std::endl;
 
 	std::string curRoom;//will hold a string denoting the current room being worked on
 	std::string adjRoom;//will hold string denoting an adjacent room to the current room
 	std::map <std::string, Room*>::iterator it;//iterator for roomMap
+	std::map <std::string, std::vector<std::string>>::iterator aI;//iterator for adj
 	//loop through vector of Room* to fill adjacency lists
 	for (it = roomMap->begin(); it != roomMap->end(); it++) {
 		curRoom = it->first;//assign name of Room being accessed to curRoom
+		aI = adj->find(curRoom);
 		List* tempList = new List;
 		//loop through vector in adj
 		//use Name for adj vector to place correct neighbors into rooms[x]
-		for (int y = 0; y < adj->at(curRoom).size(); y++) {
-			adjRoom = adj->at(curRoom)[y];//place an adjacent room name in adjRoom
-			if (adjRoom != "NULL")
+		for (int y = 0; y < aI->second.size(); y++) {
+			adjRoom = aI->second[y];//place an adjacent room name in adjRoom
+			std::cout << "adjRoom = " << adjRoom << std::endl;
+			if (adjRoom.compare(0, 4, "NULL") != 0) {
+				std::cout << "in if statement" << std::endl;
 				tempList->addAdjacent(y, roomMap->at(adjRoom));
+			}
 		roomMap->at(curRoom)->createNeighbors(tempList);
 		}
 	}
@@ -218,7 +214,7 @@ void loadList(const std::map<std::string, std::vector<std::string>> *adj, std::m
 **Pre-Condition:  .txt source file exists, itemMap has already been filled, Rooms have been created
 **Post-Condition:  new Player object is created returned
 ****************************************************************************/
-Player loadPlayer(std::string location, const std::map<std::string, Room*> *rooms, const std::map<std::string, Item*> *itemMap) {
+Player loadPlayer(std::string location, const std::map<std::string, Room*> *rooms, std::map<std::string, Item*> itemMap) {
 	//declare variables
 	std::map <std::string, std::string> tempMap;
 	std::map <std::string, std::string>::iterator it;//will be used to find Items in map
@@ -235,10 +231,7 @@ Player loadPlayer(std::string location, const std::map<std::string, Room*> *room
 	it = tempMap.find("Item01");
 	while (it->first.compare(0, 4, "Item") == 0) {
 		std::string itemName = it->second;
-		std::cout << "in item addition while loop" << std::endl;
-		std::cout << itemMap->at(itemName)->getName() << std::endl;
-		tempPlayer.addItem(itemMap->at(itemName));
-		std::cout << itemMap->at(itemName)->getName() << " item added" << std::endl;
+		tempPlayer.addItem(itemMap[itemName]);
 		it++;
 	}
 
