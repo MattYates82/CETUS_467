@@ -1,0 +1,13 @@
+Name=Churchyard
+longDesc=You come to a small churchyard on the outskirts of town.
+shortDesc=You enter the small churchyard.
+visited=0
+Item01=Church Feature
+Item02=Church Gate
+Item03=Church Sign
+adj0=Main Street
+adj1=NULL
+adj2=NULL
+adj3=NULL
+adj4=NULL
+adj5=NULL

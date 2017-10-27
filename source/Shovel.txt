@@ -1,0 +1,8 @@
+Name=Shovel
+roomDescription=A shovel has been left leaning over on the right hand side.
+Description=A short handled spade.  There is still some fresh dirt caked on the blade
+Power=3
+Healing=0
+weapon=1
+roomFeature=0
+collectible=1
