@@ -99,7 +99,7 @@ Item* loadItem(std::string location) {
 
 	tempMap = loadFile(location);//load file data into tempMap
 
-	Item* tempItem = new Item(tempMap["Name"], tempMap["Description"], std::stoi(tempMap["Power"]), std::stoi(tempMap["Healing"]), 
+	Item* tempItem = new Item(tempMap["Name"], tempMap["Description"], tempMap["roomDescription"], std::stoi(tempMap["Power"]), std::stoi(tempMap["Healing"]), 
 		std::stoi(tempMap["weapon"]), std::stoi(tempMap["roomFeature"]), std::stoi(tempMap["collectible"]));
 
 	return tempItem;
@@ -114,25 +114,48 @@ Item* loadItem(std::string location) {
 **Post-Condition:  new Room object is created and pointer is returned
 **		Also, will add adjacency list to map of string vectors
 ****************************************************************************/
-Room* loadRoom(std::string location, const std::map<std::string, Item*> *itemMap, std::map<std::string, std::vector<std::string>> *adj) {
+Room* loadRoom(std::string location, std::map<std::string, Item*> itemMap, std::map<std::string, std::vector<std::string>> *adj) {
 	//declare variables
-	std::map <std::string, std::string> tempMap;
-	std::map <std::string, std::string>::iterator it;//will be used to find Items in map
+	std::map<std::string, std::string> tempMap;
+	std::map<std::string, std::string>::iterator it;//will be used to find Items in map
 
 	tempMap = loadFile(location);//load file data into tempMap
 
-	Room* tempRoom = new Room();//create new Room with default constructor
+	Room* tempRoom = new Room;//create new Room with default constructor
 	tempRoom->addDescriptions(tempMap["longDesc"], tempMap["shortDesc"]);//populate descriptions from tempMap
-	//code to set Name will go here when set function is ready
-	//code to set visited will go here when set function is ready
+	tempRoom->setName(tempMap["Name"]);//set room name from map
+	std::cout << tempMap["Name"] << std::endl;
+	std::cout << tempMap["visited"] << std::endl;
+	tempRoom->setVisited(std::stoi(tempMap["visited"]));//set room visited bool from map
+
 
 	//Place items in Room
 	//set map iterator to first item in map
 	it = tempMap.find("Item01");
+	/*first attempt at item addition
 	while (it->first.compare(0, 4, "Item") == 0) {
-		tempRoom->addItem(itemMap->at(it->second));
+		std::string itemName = it->second;
+		std::cout << "in item addition while loop" << std::endl;
+		std::cout << itemMap[itemName]->getName() << std::endl;
+		tempRoom->addItem(itemMap[itemName]);
+		std::cout << tempRoom->getName() << " " << itemMap[itemName]->getName() << " item added" << std::endl;
+		it++;
+	}*/
+	/*second attempt at item addition
+	int itemCount = 0;
+	while (it->first.compare(0, 4, "Item") == 0) {
+		std::cout << "In while loop" << std::endl;
+		itemCount++;
 		it++;
 	}
+	for (int x = 1; x <= itemCount; x++) {
+		std::string itemNum = "Item0" + std::to_string(x);
+		std::cout << itemNum << std::endl;
+		std::string itemName = tempMap[itemNum];
+		std::cout << itemMap[itemName]->getName() << std::endl;
+		tempRoom->addItem(itemMap[itemName]);
+		std::cout << tempRoom->getName() << " " << itemMap[itemName]->getName() << std::endl;
+	}*/
 
 	//save adjacent Rooms to map of vectors to populate List later
 	//List must be populated after all Rooms have been created
@@ -142,6 +165,7 @@ Room* loadRoom(std::string location, const std::map<std::string, Item*> *itemMap
 		adj->at(tempMap["Name"]).push_back(it->second);//should push each "adj_" keyed value in map onto mapped vector
 		it++;
 	}
+
 
 	return tempRoom;
 }
@@ -179,13 +203,13 @@ void loadList(const std::map<std::string, std::vector<std::string>> *adj, std::m
 	//loop through vector of Room* to fill adjacency lists
 	for (it = roomMap->begin(); it != roomMap->end(); it++) {
 		curRoom = it->first;//assign name of Room being accessed to curRoom
-		List* tempList = new List();
-		roomMap->at(curRoom)->createNeighbors(tempList);
+		List* tempList = new List;
 		//loop through vector in adj
 		//use Name for adj vector to place correct neighbors into rooms[x]
 		for (int y = 0; y < adj->at(curRoom).size(); y++) {
 			adjRoom = adj->at(curRoom)[y];//place an adjacent room name in adjRoom
-			roomMap->at(curRoom)->addNeighbor(y, roomMap->at(adjRoom));
+			tempList->addAdjacent(y, roomMap->at(adjRoom));
+		roomMap->at(curRoom)->createNeighbors(tempList);
 		}
 	}
 }
@@ -206,9 +230,9 @@ Player loadPlayer(std::string location, const std::map<std::string, Room*> *room
 	tempMap = loadFile(location);//load file data into tempMap
 
 	//call player constructor using tempMap to find current room from map of Room pointers
-	Player tempPlayer(rooms->at(tempMap["currentRoom"]));
+	Player tempPlayer(rooms->at(tempMap["currentRoom"]), std::stoi(tempMap["health"]), std::stoi(tempMap["movesCompleted"]), std::stoi(tempMap["specialItemCount"]));
 
-	//Add functions to populate Name, health, movesCompleted, specialItemCount when they are available
+	//Add functions to populate Name when available
 
 	//Populate player inventory with Items
 	//set map iterator to first item in map
@@ -231,7 +255,7 @@ Player loadPlayer(std::string location, const std::map<std::string, Room*> *room
 **Pre-Condition:  .txt source files exist
 **Post-Condition:  new World object is created and returned
 ****************************************************************************/
-World loadWorld(std::string location) {
+/*World loadWorld(std::string location) {
 	const int itemNum = 3;//set number of item files for array access
 	const int roomNum = 2;//set number of room files for array access
 	Item* tempItem;//will be used to temporarily store created items
@@ -274,4 +298,4 @@ World loadWorld(std::string location) {
 	//create and populate world with all above loaded data
 
 	return gameWorld;
-}
+}*/

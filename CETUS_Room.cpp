@@ -7,11 +7,15 @@ using std::string;
 
 
 Room::Room(){
-	
+
 	this->visited = false;
 	this->neighbors = NULL;
 	return;
 	
+}
+
+string Room::getName(){
+	return this->Name;
 }
 
 void Room::addDescriptions(string longDesc, string shortDesc){
