@@ -1,0 +1,11 @@
+Name=
+Lead Pipe
+Description=
+This is a lead pipe.  It is good to whack people with
+Power=
+4
+Healing=0
+weapon=
+1
+roomFeature=0
+collectible=1

@@ -1,5 +1,6 @@
 Name=Old Church
 Description=The church looks old, as if it has stood since colonial times.  Like the rest of the town, it shows signs of wear and disrepair.
+roomDescription=An old church sits on the grounds.
 Power=0
 Healing=0
 weapon=0
