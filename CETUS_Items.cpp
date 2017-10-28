@@ -89,5 +89,7 @@ int Item::damageItem(int damage){
 		this->Power = 0; 
 		
 	}
+
+	return this->Power;
 	
 }

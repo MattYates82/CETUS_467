@@ -73,6 +73,7 @@ using std::string;
 	int Player::addItem(Item* current){
 		
 		this->inventory.push_back(current);
+		return 1;
 		
 	}
 	
@@ -209,6 +210,7 @@ using std::string;
 			cout << "Player has no items in inventory." << endl;
 			return;
 		}
+
 		
 		for (int i = 0; i < this->inventory.size(); i++){
 			
@@ -216,6 +218,7 @@ using std::string;
 				cout << inventory[i]->getName();
 			}
 		}
+
 		
 		return;
 		
@@ -313,4 +316,9 @@ using std::string;
 			
 		}		
 		return;
+	}
+
+
+	std::vector<Item*> Player::getInventory() {
+		return this->inventory;
 	}

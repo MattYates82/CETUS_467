@@ -41,6 +41,7 @@ int main() {
 	std::cout << "roomFeature = " << itemMap["test"]->getRoomFeature() << std::endl;
 	std::cout << "collectible = " << itemMap["test"]->getCollectible() << std::endl;*/
 
+	//Create Item, Room, and Player objects
 	std::string location = "source";
 	const int itemNum = 8;//set number of item files for array access
 	const int roomNum = 2;//set number of room files for array access
@@ -52,6 +53,7 @@ int main() {
 	std::map<std::string, Room*> roomMap;//will store Room pointers for assignment to World
 	std::map<std::string, std::vector<std::string>> adj;//map of vectors to contain room neighbors prior to assigning Lists in Rooms
 	std::string key;//used to set key values for maps
+	std::vector<Room*> rmVect;
 
 	//create array holding list of all Item files
 	std::string itemList[] = {"Bar.txt", "Businesses.txt", "Church Gate.txt", "Church Sign.txt", "Old Church.txt", "Lead Pipe.txt", "Key.txt", "Shovel.txt"};
@@ -80,6 +82,73 @@ int main() {
 	//create Player object
 	fileLocation = "./" + location + "/player.txt";
 	curPlayer = loadPlayer(fileLocation, &roomMap, itemMap);
+
+	//place Room objects in vector
+	std::map<std::string, Room*>::iterator i;
+	for (i = roomMap.begin(); i != roomMap.end(); i++) {
+		rmVect.push_back(i->second);
+	}
+
+	//Test Item, Room, and Player object contents
+	std::cout << "Checking Room Data" << std::endl;
+	for (int x = 0; x < rmVect.size(); x++) {
+		std::cout << "Name = " << rmVect[x]->getName() << std::endl;
+		std::cout << "longDesc = ";
+		rmVect[x]->getLong();
+		std::cout << std::endl;
+		std::cout << "shortDesc = ";
+		rmVect[x]->getShort();
+		std::cout << std::endl;
+		std::cout << "visited = " << rmVect[x]->getVisited() << std::endl;
+		std::cout << "Room Items:" << std::endl;
+		std::vector<Item*> roomItems = rmVect[x]->getItems();
+		for (int y = 0; y < roomItems.size(); y++) {
+			std::cout << "Item " << y << " Name = " << roomItems[y]->getName() << std::endl;
+			std::cout << "Item " << y << " Description = " << roomItems[y]->getDescription() << std::endl;
+			std::cout << "Item " << y << " Room Description = " << roomItems[y]->getRoomDescription() << std::endl;
+			std::cout << "Item " << y << " Power = " << roomItems[y]->getPower() << std::endl;
+			std::cout << "Item " << y << " Healing = " << roomItems[y]->getHealing() << std::endl;
+			std::cout << "Item " << y << " Weapon Bool = " << roomItems[y]->getWeapon() << std::endl;
+			std::cout << "Item " << y << " roomFeature Bool = " << roomItems[y]->getRoomFeature() << std::endl;
+			std::cout << "Item " << y << " collectible Bool = " << roomItems[y]->getCollectible() << std::endl;
+		}
+		List* tempList = rmVect[x]->getNeighbors();
+		if (tempList->getRoom(0)) {
+			std::cout << "North is " << tempList->getRoom(0)->getName() << std::endl;
+		}
+		if (tempList->getRoom(1)) {
+			std::cout << "South is " << tempList->getRoom(1)->getName() << std::endl;
+		}
+		if (tempList->getRoom(2)) {
+			std::cout << "East is " << tempList->getRoom(2)->getName() << std::endl;
+		}
+		if (tempList->getRoom(3)) {
+			std::cout << "West is " << tempList->getRoom(3)->getName() << std::endl;
+		}
+
+		std::cout << std::endl;
+	}
+	
+	std::cout << "Now checking Player data:" << std::endl;
+	std::cout << "Name = " << curPlayer.getName() << std::endl;
+	std::cout << "Health = " << curPlayer.getHealth() << std::endl;
+	std::cout << "movesCompleted = " << curPlayer.getMovesCompleted() << std::endl;
+	std::cout << "specialItemCount = " << curPlayer.getSpecialItemCount() << std::endl;
+	std::cout << "Player Inventory:" << std::endl;
+	std::vector<Item*> playerItems = curPlayer.getInventory();
+	for (int y = 0; y < playerItems.size(); y++) {
+		std::cout << "Item " << y << " Name = " << playerItems[y]->getName() << std::endl;
+		std::cout << "Item " << y << " Description = " << playerItems[y]->getDescription() << std::endl;
+		std::cout << "Item " << y << " Room Description = " << playerItems[y]->getRoomDescription() << std::endl;
+		std::cout << "Item " << y << " Power = " << playerItems[y]->getPower() << std::endl;
+		std::cout << "Item " << y << " Healing = " << playerItems[y]->getHealing() << std::endl;
+		std::cout << "Item " << y << " Weapon Bool = " << playerItems[y]->getWeapon() << std::endl;
+		std::cout << "Item " << y << " roomFeature Bool = " << playerItems[y]->getRoomFeature() << std::endl;
+		std::cout << "Item " << y << " collectible Bool = " << playerItems[y]->getCollectible() << std::endl;
+	}
+
+
+
 
 
 	return 0;

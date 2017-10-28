@@ -181,8 +181,6 @@ Room* loadRoom(std::string location, std::map<std::string, Item*> itemMap, std::
 
 void loadList(std::map<std::string, std::vector<std::string>> *adj, std::map<std::string, Room*> *roomMap){
 
-	std::cout << "Entered loadList" << std::endl;
-
 	std::string curRoom;//will hold a string denoting the current room being worked on
 	std::string adjRoom;//will hold string denoting an adjacent room to the current room
 	std::map <std::string, Room*>::iterator it;//iterator for roomMap
@@ -196,9 +194,7 @@ void loadList(std::map<std::string, std::vector<std::string>> *adj, std::map<std
 		//use Name for adj vector to place correct neighbors into rooms[x]
 		for (int y = 0; y < aI->second.size(); y++) {
 			adjRoom = aI->second[y];//place an adjacent room name in adjRoom
-			std::cout << "adjRoom = " << adjRoom << std::endl;
 			if (adjRoom.compare(0, 4, "NULL") != 0) {
-				std::cout << "in if statement" << std::endl;
 				tempList->addAdjacent(y, roomMap->at(adjRoom));
 			}
 		roomMap->at(curRoom)->createNeighbors(tempList);
