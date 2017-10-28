@@ -1,0 +1,8 @@
+Name=Key
+roomDescription=You see what looks like a small key on the ground.
+Description=A small, old key with a strangley shaped head.
+Power=0
+Healing=0
+weapon=0
+roomFeature=0
+collectible=1

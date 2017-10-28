@@ -7,11 +7,19 @@ using std::string;
 
 
 Room::Room(){
-	
+
 	this->visited = false;
 	this->neighbors = NULL;
 	return;
 	
+}
+
+string Room::getName(){
+	return this->Name;
+}
+
+bool Room::getVisited(){
+	return this->visited;
 }
 
 void Room::addDescriptions(string longDesc, string shortDesc){
@@ -82,11 +90,11 @@ void Room::setVisited(bool visit){
 	
 }
 
-/*Item* Room::findItem(string current){
+Item* Room::findItem(string current){
 	
 	for (int i = 0; i < this->roomItems.size(); i++){
 	
-		if (this->roomItems[i]->getName().compare(current)){
+		if (this->roomItems[i]->getName().compare(current) == 0){
 			
 			return this->roomItems[i];
 		}
@@ -95,4 +103,9 @@ void Room::setVisited(bool visit){
 
 	return NULL;
 		
-}*/  //Returning error for using an incomplete type here, may need to move this functionality to the overall world. 
+}  //Returning error for using an incomplete type here, may need to move this functionality to the overall world. 
+
+
+std::vector<Item*> Room::getItems() {
+	return this->roomItems;
+}

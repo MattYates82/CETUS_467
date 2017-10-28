@@ -1,0 +1,11 @@
+name=Test Room
+longDesc=This test room has 6 objects, 2 features, and 6 exits
+shortDesc=This room has stuff
+visited=0
+Item01=Lead Pipe
+adj0=Bristol
+adj1=Philly
+adj2=NJ
+adj3=Lancaster
+adj4=Sky
+adj5=Earth

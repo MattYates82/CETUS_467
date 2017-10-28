@@ -1,6 +1,7 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include "CETUS_Items.hpp"
 
 #ifndef CETUS_ROOM_HPP
 #define CETUS_ROOM_HPP
@@ -28,6 +29,7 @@ class Room {
 		Room();
 		~Room();
 		string getName();
+		bool getVisited();
 		void addDescriptions(string longDesc, string shortDesc);
 		void addItem(Item* current);
 		void removeItem(Item* current);
@@ -39,5 +41,6 @@ class Room {
 		void setVisited(bool visit);
 		List* getNeighbors();
 		Item* findItem(string current);
+		std::vector<Item*> getItems();
 };
 #endif

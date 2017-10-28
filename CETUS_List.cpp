@@ -216,3 +216,31 @@ void List::switchAdjacent(int first, int second){
 	
 }
 
+
+Room* List::getRoom(int direction) {
+	switch(direction){
+		
+		case 0:
+			return this->north;
+		
+		case 1:
+			return this->south;
+			
+		case 2:
+			return this->east;
+			
+		case 3:
+			return this->west;
+
+		case 4:
+			return this->up;
+
+		case 5:
+			return this->down;
+			
+		default:
+			break;		
+		
+	}
+}
+

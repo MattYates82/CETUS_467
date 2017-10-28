@@ -47,6 +47,7 @@ class Player{
 		void printAdjacent(int direction);
 		void move(int direction);
 		Item* findItem(string current, bool drop);
+		std::vector<Item*> getInventory();
 	
 };
 

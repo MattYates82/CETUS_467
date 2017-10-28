@@ -1,0 +1,8 @@
+Name=
+roomDescription=
+Description=
+Power=
+Healing=
+weapon=
+roomFeature=
+collectible=
