@@ -1,0 +1,13 @@
+Name=Training
+longDesc=Easily identifiable as a former place of martial training.  Old punching bags, fitness gear, and various other trash litter the floor.
+shortDesc=An old training hall.
+visited=0
+Item01=NULL
+Item02=NULL
+Item03=NULL
+adj0=Main Street
+adj1=NULL
+adj2=NULL
+adj3=NULL
+adj4=Studio
+adj5=NULL

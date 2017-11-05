@@ -13,6 +13,7 @@ class List{
 	private:
 	
 		friend class Player;
+		friend class World;
 		Room* north;
 		Room* south;
 		Room* east;

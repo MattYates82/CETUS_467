@@ -1,5 +1,10 @@
 #include <string>
 #include <vector>
+#include <iomanip>
+#include <cstdlib>
+#include <unistd.h>
+#include <term.h>
+#include <fstream>
 #define numItems 10
 //#include "CETUS_Room.hpp"
 
@@ -7,6 +12,10 @@
 #define CETUS_PLAYER_HPP
 
 using std::string;
+using std::cout;
+using std::endl;
+using std::ifstream;
+
 
 class Item;
 class Room;
@@ -16,6 +25,7 @@ class Player{
 
 	private:
 	
+		friend class World;
 		string Name;
 		int	health;
 		int movesCompleted;
@@ -33,20 +43,16 @@ class Player{
 		int getMovesCompleted();
 		Room*	getCurrentRoom();
 		int getSpecialItemCount();
-		void setCurrentRoom(Room* current);
-		int addItem(Item* current);
-		int dropItem(string current);
+		void setHealth(int currentHealth);
+		void setCurrentRoom(Room* currentR);
+		void setMovesCompleted(int moves);
+		void setSpecialItemCount(int count);
+		void setNeighbors(List* newNeighbors);
 		int incrementMoves();
 		int decrementMoves();
-		int resurrectPlayer(Room* current);
+		int resurrectPlayer(Room* currentR);
 		int damagePlayer(int damage);
 		int healPlayer(int health);
-		void printAllAdjacent();
-		void printInventory();
-		void printRoomInventory();
-		void printAdjacent(int direction);
-		void move(int direction);
-		Item* findItem(string current, bool drop);
 	
 };
 

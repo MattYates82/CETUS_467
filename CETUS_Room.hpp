@@ -1,13 +1,14 @@
 #include <string>
 #include <algorithm>
 #include <vector>
+#include "CETUS_Items.hpp"
 
 #ifndef CETUS_ROOM_HPP
 #define CETUS_ROOM_HPP
 
 using std::string;
 
-class Item;
+
 class List;
 
 
@@ -16,6 +17,7 @@ class Room {
 	private:
 	
 		friend class Player;
+		friend class World;
 		string 	Name;
 		string	longDesc;
 		string	shortDesc;
@@ -39,5 +41,6 @@ class Room {
 		void setVisited(bool visit);
 		List* getNeighbors();
 		Item* findItem(string current);
+        int getVisited();
 };
 #endif

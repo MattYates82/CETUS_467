@@ -1,0 +1,8 @@
+Name=Corpse
+roomDescription=A corpse is lying on the ground.
+Description=This corpse has rotted for a long time.  Clutched in its hand is a piece of paper which reads “BEWARE” in old blood.
+Power=1
+Healing=0
+weapon=0
+roomFeature=0
+collectible=1

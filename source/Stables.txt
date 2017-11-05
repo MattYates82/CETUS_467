@@ -1,0 +1,13 @@
+Name=Stables
+longDesc=You are standing in what appears to be old horse stables.  The wood is so old you would think the spiderwebs are holding it together.  
+shortDesc=An abandoned stable barn.
+visited=0
+Item01=NULL
+Item02=NULL
+Item03=NULL
+adj0=NULL
+adj1=NULL
+adj2=Churchyard
+adj3=NULL
+adj4=NULL
+adj5=NULL

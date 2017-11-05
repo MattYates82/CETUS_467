@@ -1,0 +1,8 @@
+Name=Church Gate
+roomDescription=A small, wrought-iron gate allows entrance to the cemetery.
+Description=The gate shows signs of rust and disrepair.
+Power=0
+Healing=0
+weapon=0
+roomFeature=1
+collectible=0

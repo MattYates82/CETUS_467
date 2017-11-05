@@ -24,7 +24,7 @@ class Item {
 		Item();
 		Item(string Name, string Description, string roomDesc, int Power, int Healing, bool weapon, bool feature, bool collect);
 		~Item();
-		int damageItem(int damage);
+		void damageItem(int damage);
 		string getName();
 		string getDescription();
 		string getRoomDescription();
@@ -33,6 +33,14 @@ class Item {
 		bool getWeapon();
 		bool getRoomFeature();
 		bool getCollectible();
+		void setName(string current);
+		void setDescription(string current);
+		void setRoomDescription(string current);
+		void setPower(int current);
+		void setHealing(int current);
+		void setWeapon(bool current);
+		void setRoomFeature(bool current);
+		void setCollectible(bool current);
 	
 };
 #endif

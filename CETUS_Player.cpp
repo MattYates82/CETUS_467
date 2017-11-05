@@ -5,12 +5,23 @@
 #include "CETUS_List.hpp"
 #include "CETUS_Items.hpp"
 
+
+
 #define NORTH 0
 #define SOUTH 1
 #define EAST 2
 #define WEST 3
 #define UP 4
 #define DOWN 5
+#define LINESIZE 80
+
+const std::string red("\033[0;31m");
+const std::string green("\033[1;32m");
+const std::string yellow("\033[1;33m");
+const std::string cyan("\033[0;36m");
+const std::string magenta("\033[0;35m");
+const std::string reset("\033[0m");
+
 
 using std::endl;
 using std::cout;
@@ -52,11 +63,6 @@ using std::string;
 		
 	}
 	
-	void Player::setCurrentRoom(Room* current){
-		
-		this->currentRoom = current;
-		return;
-	}
 	
 	Room* Player::getCurrentRoom(){
 		
@@ -69,48 +75,7 @@ using std::string;
 		return this->specialItemCount;
 		
 	}
-	
-	int Player::addItem(Item* current){
-		
-		this->inventory.push_back(current);
-		
-	}
-	
-	int Player::dropItem(string current){
-		
-		
-		Item* temp = findItem(current, true);
-		
-		if (temp != NULL){
-		
-			this->currentRoom->addItem(temp);
-			return 0; 
-		}
-		
-		return 1;
-		
-	}
-	
-	Item* Player::findItem(string current, bool drop){
-		
-		for (int i = 0; i < this->inventory.size(); i++){
-			
-			if (this->inventory[i]->getName().compare(current)){
-				
-				Item* temp = this->inventory[i];
-				
-				if(drop == true){
-					this->inventory[i] = NULL;
-				}
-				
-				return temp;
-			}
-			
-		}
-		
-		return NULL;
-		
-	}
+
 	
 	int Player::incrementMoves(){
 		
@@ -160,157 +125,29 @@ using std::string;
 		return 0;		
 		
 	}
-	void Player::printAllAdjacent(){
-		
-		if (this->currentRoom->neighbors->north != NULL){
-			
-			cout << this->currentRoom->neighbors->north->Name << endl;
-			
-		}
-		
-		if (this->currentRoom->neighbors->south != NULL){
-			
-			cout << this->currentRoom->neighbors->south->Name << endl;
-			
-		}
-		
-		if (this->currentRoom->neighbors->east != NULL){
-			
-			cout << this->currentRoom->neighbors->east->Name << endl;
-			
-		}
-		
-		if (this->currentRoom->neighbors->west != NULL){
-			
-			cout << this->currentRoom->neighbors->west->Name << endl;
-			
-		}
-		
-		
-		if (this->currentRoom->neighbors->up != NULL){
-			
-			cout << this->currentRoom->neighbors->up->Name << endl;
-			
-		}
-		
-		if (this->currentRoom->neighbors->down != NULL){
-			
-			cout << this->currentRoom->neighbors->down->Name << endl;
-			
-		}
-		
-		return;
-	}
 	
-	void Player::printInventory(){
+	void Player::setHealth(int currentHealth){
 		
-		if (this->inventory.size() == 0) { 
-		
-			cout << "Player has no items in inventory." << endl;
-			return;
-		}
-		
-		for (int i = 0; i < this->inventory.size(); i++){
-			
-			if (this->inventory[i] != NULL){
-				cout << inventory[i]->getName();
-			}
-		}
-		
-		return;
+		this->health = currentHealth;
 		
 	}
-	void Player::printRoomInventory(){
+	void Player::setCurrentRoom(Room* currentR){
 		
-		if (this->currentRoom->roomItems.size() == 0) { 
-		
-			cout << "Player has no items in inventory." << endl;
-			return;
-		}
-		
-		for (int i = 0; i < currentRoom->roomItems.size(); i++){
-			
-			if (currentRoom->roomItems[i] != NULL){
-				cout << currentRoom->roomItems[i]->getName();
-			}
-		}
-		
-		return;		
+		this->currentRoom = currentR;
 		
 	}
-	void Player::printAdjacent(int direction){
+	void Player::setMovesCompleted(int moves){
 		
-		switch(direction){
-			
-			case NORTH:
-				cout << this->currentRoom->neighbors->north->Name << endl;
-				break;
-			
-			case SOUTH:
-				cout << this->currentRoom->neighbors->south->Name << endl;
-				break;
-			
-			case EAST:
-				cout << this->currentRoom->neighbors->east->Name << endl;
-				break;
-			
-			case WEST:
-				cout << this->currentRoom->neighbors->west->Name << endl;
-				break;
-			
-			case UP:
-				cout << this->currentRoom->neighbors->up->Name << endl;
-				break;
-			
-			case DOWN:
-				cout << this->currentRoom->neighbors->down->Name << endl;
-				break;
-			
-			default:
-				break;
-			
-		}		
-		return;		
+		this->movesCompleted = moves;
 		
 	}
-	
-	void Player::move(int direction){
+	void Player::setSpecialItemCount(int count){
 		
-		switch(direction){
-			
-			case NORTH:
-				this->currentRoom = this->currentRoom->neighbors->north;
-				this->currentNeighbors = this->currentRoom->getNeighbors();
-				break;
-			
-			case SOUTH:
-				this->currentRoom = this->currentRoom->neighbors->south;
-				this->currentNeighbors = this->currentRoom->getNeighbors();
-				break;
-			
-			case EAST:
-				this->currentRoom = this->currentRoom->neighbors->east;
-				this->currentNeighbors = this->currentRoom->getNeighbors();
-				break;
-			
-			case WEST:
-				this->currentRoom = this->currentRoom->neighbors->west;
-				this->currentNeighbors = this->currentRoom->getNeighbors();
-				break;
-			
-			case UP:
-				this->currentRoom = this->currentRoom->neighbors->up;
-				this->currentNeighbors = this->currentRoom->getNeighbors();
-				break;
-			
-			case DOWN:
-				this->currentRoom = this->currentRoom->neighbors->down;
-				this->currentNeighbors = this->currentRoom->getNeighbors();
-				break;
-			
-			default:
-				break;
-			
-		}		
-		return;
+		this->specialItemCount = count;
+		
+	}
+	void Player::setNeighbors(List* newNeighbors){
+		
+		this->currentNeighbors = newNeighbors;
+		
 	}

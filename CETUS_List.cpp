@@ -60,7 +60,15 @@ void List::addAdjacent(int direction, Room* current){
 		case 3:
 			this->west = current;
 			break;
-			
+		
+        case 4:
+            this->up = current;
+            break;
+            
+        case 5:
+            this->down = current;
+            break;
+            
 		default:
 			break;		
 		
